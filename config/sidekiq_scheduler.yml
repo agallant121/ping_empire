@@ -6,4 +6,4 @@
 :schedule:
   ping_all_websites:
     cron: "*/1 * * * *"
-    class: "PingAllWebsitesJob"
+    class: PingAllWebsitesJob

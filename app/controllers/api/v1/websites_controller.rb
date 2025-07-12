@@ -2,7 +2,7 @@ class Api::V1::WebsitesController < ApplicationController
   before_action :set_website, only: [:show, :destroy]
 
   def create
-    website = Website.new(url: params[:url])
+    website = Website.create(url: params[:url])
     render json: website, status: :created
   end
 
@@ -23,7 +23,7 @@ class Api::V1::WebsitesController < ApplicationController
     @website.destroy
     head :no_content 
   end
-  
+
   private
 
   def set_website

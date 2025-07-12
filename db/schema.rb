@@ -10,25 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_12_135203) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_12_180712) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
-
-  create_table "endpoints", force: :cascade do |t|
-    t.string "url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "ping_results", force: :cascade do |t|
-    t.bigint "endpoint_id", null: false
-    t.integer "status_code"
-    t.integer "response_time_ms"
-    t.datetime "checked_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["endpoint_id"], name: "index_ping_results_on_endpoint_id"
-  end
 
   create_table "responses", force: :cascade do |t|
     t.bigint "website_id", null: false
@@ -37,6 +21,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_12_135203) do
     t.datetime "checked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "error_message"
     t.index ["website_id"], name: "index_responses_on_website_id"
   end
 
@@ -46,6 +31,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_12_135203) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "ping_results", "endpoints"
   add_foreign_key "responses", "websites"
 end

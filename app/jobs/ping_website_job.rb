@@ -1,3 +1,5 @@
+require "net/http"
+
 class PingWebsiteJob < ApplicationJob
   queue_as :default
 
@@ -24,6 +26,5 @@ class PingWebsiteJob < ApplicationJob
       checked_at: Time.now,
       error_message: e.message
     )
-    
   end
 end

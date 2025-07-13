@@ -4,8 +4,7 @@ class PingWebsiteJob < ApplicationJob
   queue_as :default
 
   def perform(website_id)
-    website = Website.find_by(id: website_id)
-    return unless website
+    website = Website.find(website_id)
 
     uri = URI.parse(website.url)
     start_time = Time.now

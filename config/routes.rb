@@ -1,5 +1,11 @@
+require "sidekiq/web"
+require "action_dispatch/middleware/session/cookie_store"
+
+Sidekiq::Web.use ActionDispatch::Cookies
+Sidekiq::Web.use ActionDispatch::Session::CookieStore, key: "_your_app_session"
+
 Rails.application.routes.draw do
-  get "up" => "rails/health#show", as: :rails_health_check
+  mount Sidekiq::Web => "/sidekiq"
 
   namespace :api do
     namespace :v1 do

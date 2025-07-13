@@ -13,10 +13,10 @@ RSpec.describe "Api::V1::Websites", type: :request do
     expect(json["url"]).to eq("https://google.com")
   end
 
-  context "when the websites exists or don't exist" do
+  context "get websites that exist and don't exist" do
     let!(:website) { Website.create!(url: "https://www.google.com") }
     
-    it "returns the website and" do
+    it "returns the website and its reponses" do
       website.responses.create!(status_code: 200, response_time: 100, checked_at: Time.now)
       website.responses.create!(status_code: 404, response_time: 200, checked_at: Time.now - 1.day)
 
@@ -55,7 +55,7 @@ RSpec.describe "Api::V1::Websites", type: :request do
   end
 
   context "deleting when there are/are no websites" do
-    it "deletes an website" do
+    it "deletes a website that exists" do
       website = Website.create!(url: "https://google.com")
       websites_count = Website.count
 
@@ -65,7 +65,7 @@ RSpec.describe "Api::V1::Websites", type: :request do
       expect(Website.count).to eq(websites_count - 1)
     end
 
-    it "returns an error when website does not exist" do
+    it "returns an error when deleting a website that does not exist" do
       delete "/api/v1/websites/987654321"
 
       expect(response).to have_http_status(:not_found)

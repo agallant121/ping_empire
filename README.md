@@ -9,8 +9,8 @@ A simple Rails API for monitoring uptime and response information on website end
   - `Response` — stores status, response_time (ms), and optional error
 
 - **Jobs**
-  - `PingAllWebsitesJob`: enqueues a `PingWebsiteJob` for each URL
-  - `PingWebsiteJob`: makes HTTP call, times the request, saves a `Response`
+  - `PingAllWebsitesJob`: enqueues a `PingWebsiteJob` for each URL (Website).
+  - `PingWebsiteJob`: makes call to website, times the request, crates/saves a `Response`.
 
 ## Setup & Usage
 
@@ -20,4 +20,11 @@ A simple Rails API for monitoring uptime and response information on website end
 4. Start Sidekiq: `bundle exec sidekiq`.
 5. (Optional) Start Rails server: `rails s`.
 6. Pings run automatically on schedule via `sidekiq-scheduler` (configured in `sidekiq.yml`) from `sidekiq.rb` initializer.
+
+## API Endpoints
+
+- `POST /api/v1/websites` — create new Website with URL
+- `GET /api/v1/websites` — list Websites and their URLs
+- `GET /api/v1/websites/:id` — show Website and its responses
+- `DELETE /api/v1/websites/:id` — remove Website
 

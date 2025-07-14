@@ -28,3 +28,10 @@ A simple Rails API for monitoring uptime and response information on website end
 - `GET /api/v1/websites/:id` — show Website and its responses
 - `DELETE /api/v1/websites/:id` — remove Website
 
+## Archiving
+`ArchiveDayOldPingsJob`: runs daily (via sidekiq-scheduler) to:
+
+Export all Response records older than 24 hours to a timestamped CSV file in the archive/ directory.
+
+Delete those responses from the database only after confirming the CSV file was saved successfully.
+

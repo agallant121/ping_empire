@@ -4,4 +4,6 @@ class Response < ApplicationRecord
   validates :status_code, numericality: true, allow_nil: true
   validates :response_time, numericality: true, allow_nil: true
   validates :checked_at, presence: true
+
+  scope :more_than_one_day_old, -> { where("created_at < ?", 1.day.ago) }
 end

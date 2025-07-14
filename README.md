@@ -1,24 +1,23 @@
-# README
+# Ping Empire
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple Rails API for monitoring uptime and response information on website endpoints.
 
-Things you may want to cover:
+## Architecture
 
-* Ruby version
+- **Models**
+  - `Website` — tracks URLs to monitor
+  - `Response` — stores status, response_time (ms), and optional error
 
-* System dependencies
+- **Jobs**
+  - `PingAllWebsitesJob`: enqueues a `PingWebsiteJob` for each URL
+  - `PingWebsiteJob`: makes HTTP call, times the request, saves a `Response`
 
-* Configuration
+## Setup & Usage
 
-* Database creation
+1. Clone the repo.
+2. Run `bundle install` and `yarn install` if needed.
+3. `rails db:setup` to create database.
+4. Start Sidekiq: `bundle exec sidekiq`.
+5. (Optional) Start Rails server: `rails s`.
+6. Pings run automatically on schedule via `sidekiq-scheduler` (configured in `sidekiq.yml`) from `sidekiq.rb` initializer.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

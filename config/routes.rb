@@ -5,6 +5,7 @@ Sidekiq::Web.use ActionDispatch::Cookies
 Sidekiq::Web.use ActionDispatch::Session::CookieStore, key: "_your_app_session"
 
 Rails.application.routes.draw do
+  devise_for :users
   mount Sidekiq::Web => "/sidekiq"
 
   namespace :api do
